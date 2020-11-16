@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-dark">
+        <a class="navbar-brand" href="#" style="color:white">
+            Pronunciation Hacker Test
+        </a>
+    </nav>
+
+    <div class="container-fluid w-100">
+
+        <div class="container pt-5">
+
+            <div class="form-group">
+                <h3>
+                    <p id="story"></p>
+                </h3>
+                <textarea id="textbox" rows="6" class="form-control">
+                    
+                </textarea>
+            </div>
+            <div class="form-group">
+                <button id="start-btn" class="btn btn-danger btn-block">
+                    Start
+                </button>
+                <p id="instructions">
+                    Press the start button
+                </p>
+            </div>
+        </div>
+        
+        
+    </div>
+    
+</body>
+<style>
+    mark{
+        background-color:green;
+        
+    }
+    #story{
+        /* line-height:2em; */
+        font-family: 'Roboto', sans-serif;
+    }
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.es6.min.js" integrity="sha512-zWsaatY+hhFTn7k17RE63/Tb2gzMwZnMiF2lSINfPkIBciAvHpSxwW7N8BpF/szQ3g9kVyskM53vSCvcgXxv+g==" crossorigin="anonymous"></script>
+<script src="script.js"></script>
+</html>
