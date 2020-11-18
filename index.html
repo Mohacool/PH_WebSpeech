@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -102,10 +104,71 @@
         overflow-x:hidden;
         overflow-y:scroll;
     }
+
+    .fooltip {
+        position:relative; /* making the .tooltip span a container for the tooltip text */
+        border-bottom:1px dashed #000; /* little indicater to indicate it's hoverable */
+    }
+    .fooltip:before {
+        content: attr(data-text); /* here's the magic */
+        position:absolute;
+        
+        /* vertically center */
+        top:50%;
+        transform:translateY(-50%);
+        
+        /* move to right */
+        left:100%;
+        margin-left:15px; /* and add a small left margin */
+        
+        /* basic styles */
+        width:200px;
+        padding:10px;
+        border-radius:10px;
+        background:#000;
+        color: #fff;
+        text-align:center;
+
+        display:none; /* hide by default */
+    }
+    .fooltip:hover:before {
+        display:block;
+    }
+
+    .fooltip.left:before {
+        /* reset defaults */
+        left:initial;
+        margin:initial;
+
+        /* set new values */
+        right:100%;
+        margin-right:15px;
+    }
+    .tooltip-inner {
+        max-width: 200px;
+        padding: 3px 8px;
+        color: #fff;
+        text-align: center;
+        font-size:18px;
+        background-color: rgb(85, 151, 182);
+        border-radius: .25rem;
+        opacity:1;
+    }
+    .tooltip.bs-tooltip-top .arrow:before {
+        display:none;
+    }
+    .tooltip{opacity:1!important;}
     
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.es6.min.js" integrity="sha512-zWsaatY+hhFTn7k17RE63/Tb2gzMwZnMiF2lSINfPkIBciAvHpSxwW7N8BpF/szQ3g9kVyskM53vSCvcgXxv+g==" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script>
+    
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        console.log($('[data-toggle="tooltip"]'));
+    })
+</script>
 <script src="script.js"></script>
 </html>

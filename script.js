@@ -75,6 +75,8 @@ textbox.on('input',function(){
 
 var annotated_words=["bateau","se demandent","marin","Il a l’air calme","Crie","à bord","malheur"];
 var annotated_meanings = ["a boat","to ask oneself / to wonder","a sailor / a seaman ","il semble calme = he looks calm","to yell","on board","un problème = a misfortune"];
+
+
 $.ajax({
     url: "chapter1.txt",
     dataType: "text",
@@ -189,14 +191,15 @@ $.ajax({
 
         // Go through every annotation in annotation_list and replace the annotations in the big string
 
+        
         annotated_words.forEach(function (word, i) {
             let annot_number = i +1;
             let full_annotation = word+"["+annot_number+"]";
             console.log(full_annotation);
             lines = lines.replace(full_annotation,
-                `<span class='annotate ${annot_number}'>
+                `<span class='annotate ${annot_number}' data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                 ${word}
-                    <span class="tooltiptext"></span>
+                   
                     
                 </span>`);
         })
@@ -283,9 +286,11 @@ function analyse(transcript){
 $(".annotate").hover(function(e){
     
     let annot_number = this.classList[1]-1;
-    $(".tooltiptext").text(annotated_meanings[annot_number]);
+    // $(".tooltiptext").text(annotated_meanings[annot_number]);
     // alert(annotated_meanings[annot_number]);
+    $($('.annotate')).attr('data-original-title',annotated_meanings[annot_number]);
 
 })
+
 
 
