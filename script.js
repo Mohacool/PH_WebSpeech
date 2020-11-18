@@ -101,23 +101,29 @@ $.ajax({
         lines = lines.map( element => element.replace("*",'&emsp;&emsp;'));
         lines = lines.map( element => element.replace("    ",'&emsp;&emsp;'));
         lines = lines.map(element => element+"<br><br>");
-        
+
+        // lines = lines.map(element => element.replace("«","<br>«"));
         $("#chapter_title").html("1 L’ARRIVÉE");
 
 
         console.log("lines------------------");
         console.log(lines);
         lines = lines.join(" ");
-        console.log("ALSO lines------------------");
+        console.log("I NEED TO GET HERE------------------");
         console.log(lines);
+
+
 
         // Go through every annotation in annotation_list and replace the annotations in the big string
 
-        
         annotated_words.forEach(function (word, i) {
+
+            // Gets the full annotation ex: sailor[1]
             let annot_number = i +1;
             let full_annotation = word+"["+annot_number+"]";
             console.log(full_annotation);
+
+            // in the loop keep replacing blah[1],blah[2],blah[3]....
             lines = lines.replace(full_annotation,
                 `<span class='annotate ${annot_number}' data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                 ${word}
@@ -127,7 +133,6 @@ $.ajax({
         })
 
         $("#story").html(lines);
-        // $("#story").html(bines);
     }
     
     
