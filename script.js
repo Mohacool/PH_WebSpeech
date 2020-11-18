@@ -101,90 +101,12 @@ $.ajax({
         lines = lines.map( element => element.replace("*",'&emsp;&emsp;'));
         lines = lines.map( element => element.replace("    ",'&emsp;&emsp;'));
         lines = lines.map(element => element+"<br><br>");
+        
         $("#chapter_title").html("1 L’ARRIVÉE");
 
 
-        
-
-        // lines = lines.map(function(e){
-        //     console.log(e.includes("["));
-        //     console.log("e is"+e);
-        //     if (e.includes("[")){
-        //         let bracket_start = e.indexOf("[");
-        //         let bracket_end = e.indexOf("]");
-
-        //         let annotate_number = e.substring(bracket_start+1,bracket_end);
-
-        //         let annotate_word = e.substring(0,bracket_start).split(" ").slice(-1)[0];
-
-        //         let up_to_word = e.substring(0,e.indexOf(annotate_word));
-        //         // console.log(up_to_word+`<span class=annotate>${annotate_word}</span>`+e.substring(bracket_end+1));
-                
-        //         console.log(up_to_word);
-        //         console.log("=============="+annotate_word);
-        //         console.log(e.substring(bracket_end+1));
-        //         // console.log(e.substring(0,bracket_start)+e.substring(bracket_end+1));
-        //         // return up_to_word+`
-        //         // <span class=annotate>
-        //         //     ${annotate_word}
-        //         //     <param value=1>
-        //         // </span>
-        //         // `+e.substring(bracket_end+1);
-        //         // return e;
-        //     }
-        //     return e;
-        // })
-
-      
-        
-        
-
         console.log("lines------------------");
         console.log(lines);
-
-
-        var bines = [];
-        // Loop through sentences
-
-        // lines.forEach(function (sentence, i) {
-        //     console.log("pushing sentence"+sentence);
-        //     if (sentence.includes("[")){
-        //         console.log("================ALERT");
-        //         console.log(sentence.split(" "));
-        //         altered_sentence = []
-        //         sentence.split(" ").forEach(function (word, j) {
-                    
-        //             console.log("word"+word)
-        //             if (word.includes("[")){
-        //                 let bracket_start = word.indexOf("[");
-        //                 let bracket_end = word.indexOf("]");
-        //                 let annotate_number = word.substring(bracket_start+1,bracket_end);
-                        
-        //                 console.log("bird : "+ word);
-
-        //                 // ex: bateau
-        //                 let full_annotation = annotated_words[annotate_number];
-                        
-
-        //                 console.log("============="+full_annotation+"["+annotate_number+"]");
-
-        //                 console.log(annotate_number);
-                        
-        //             }
-        //             else{
-        //                 altered_sentence.push(word);
-        //             }
-        //         })
-        //         console.log("altered");
-        //         console.log(altered_sentence.join(" "));
-        //         sentence = altered_sentence.join(" ");
-                
-        //     }
-         
-        //     bines.push(sentence);
-            
-        // })
-
         lines = lines.join(" ");
         console.log("ALSO lines------------------");
         console.log(lines);
