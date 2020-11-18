@@ -76,6 +76,7 @@ textbox.on('input',function(){
 var annotated_words=["bateau","se demandent","marin","Il a l’air calme","Crie","à bord","malheur","soulagé","la mer ","obéissent","inattendue","épée","survécu","voilà","le comptable","dextérité","saisit","laisse","surtout","des conseils","en jetant un regard","haine","l'île d'Elbe","au lieu de"];
 var annotated_meanings = ["a boat","to ask oneself / to wonder","a sailor / a seaman ","il semble calme = he looks calm","to yell","on board","un problème = a misfortune","rassuré = relieved","the sea","obéir = to obey","unexpected","une épée = a sword","survived (verbe: survivre)","here is…","the accountant","agilité","to seize","laisser = to let / to give","above all","advices (masculin)","take a look","hatred / anger","l'île d'Elbe est fameuse pour être l'île d'exil de Napoléon en 1814-15","instead of"];
 
+var numbers=["vingt-quatre","mille-huit-cent-quinze"];
 
 $.ajax({
     url: "chapter1.txt",
@@ -108,6 +109,9 @@ $.ajax({
 
         console.log("lines------------------");
         console.log(lines);
+
+       
+
         lines = lines.join(" ");
         console.log("I NEED TO GET HERE------------------");
         console.log(lines);
@@ -131,6 +135,15 @@ $.ajax({
                     
                 </span>`);
         })
+
+
+        // Add number annotations manually
+        lines = lines.replace("24","<span class='annotate number1' data-toggle='tooltip' data-placement='top' title='vingt-quatre'>24</span>");
+        lines = lines.replace("1815","<span class='annotate number2' data-toggle='tooltip' data-placement='top' title='mille-huit-cent-quinze'>1815</span>");
+
+       
+
+        
 
         $("#story").html(lines);
     }
@@ -218,12 +231,24 @@ function analyse(transcript){
 }
 
 $(".annotate").hover(function(e){
-    
-    let annot_number = this.classList[1]-1;
-    // $(".tooltiptext").text(annotated_meanings[annot_number]);
-    // alert(annotated_meanings[annot_number]);
-    $($('.annotate')).attr('data-original-title',annotated_meanings[annot_number]);
 
+    
+    // Only take annotation classes such as 'annotation 1', 'annotation 2'... not 'annotation' (used for numbers)
+    if(this.classList[1].includes('number')){
+        let index = this.classList[1].replace('number','') -1;
+        $($('.annotate')).attr('data-original-title',numbers[index]);
+    }
+    else{
+        let annot_number = this.classList[1]-1;
+        // $(".tooltiptext").text(annotated_meanings[annot_number]);
+        // alert(annotated_meanings[annot_number]);
+        $($('.annotate')).attr('data-original-title',annotated_meanings[annot_number]);
+    }
+   
+
+    
+   
+    
 })
 
 
