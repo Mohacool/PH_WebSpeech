@@ -212,17 +212,9 @@ var sentence = $("#story").text(); // Fetch the story from the html
 console.log(sentence);
 
 var words = sentence.split(" ");
-words = words.filter(word => word!="«" && word!="»").filter(e=> e!="" && e!="  ");
+words = words.filter(word => word!="«" && word!="»").filter(e=> e!="" && e!="  ").filter(e=> e!="\n");
 
-// Step to remove annotations and change annotated word to <hoverable> </hoverable>
-words = words.map(function(e){
-    if (e.includes("[")){
-        let bracket_index = e.indexOf("[");
-        // remove the [1]
-        return e.substring(0,bracket_index);
-    }
-    return e;
-})
+
 
 
 console.log("words->");
@@ -243,6 +235,7 @@ function analyse(transcript){
 
     console.log(words_detected);
     
+    console.log(words);
     // Loop through the words detected
     words_detected.forEach(function (item, index) {
         console.log(item, index);
@@ -252,7 +245,7 @@ function analyse(transcript){
         var stripped_word = words[at_word].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()«»]/g,"");
 
         // If the words match the current word we're at 
-        if(item.toLowerCase()==stripped_word.toLowerCase()){
+        if(item.toLowerCase()==stripped_word.toLowerCase().trim()){
            
 
             // The text that can get highlighted (this gets smaller as you get more words)
