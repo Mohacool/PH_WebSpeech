@@ -78,6 +78,8 @@ var annotated_meanings = ["a boat","to ask oneself / to wonder","a sailor / a se
 
 var numbers=["vingt-quatre","mille-huit-cent-quinze"];
 
+var audio_words = ["monsieur","est-il"];
+
 $.ajax({
     url: "chapter1.txt",
     dataType: "text",
@@ -137,11 +139,13 @@ $.ajax({
         })
 
 
-        // Add number annotations manually
+        // Add number annotations manually (this can be made into a loop later)
         lines = lines.replace("24","<span class='annotate number1' data-toggle='tooltip' data-placement='top' title='vingt-quatre'>24</span>");
         lines = lines.replace("1815","<span class='annotate number2' data-toggle='tooltip' data-placement='top' title='mille-huit-cent-quinze'>1815</span>");
 
-       
+       // Add audio annotations manually (this can be made into a loop later)
+    //    lines = lines.replace("monsieur")
+        
 
         
 
@@ -244,12 +248,23 @@ $(".annotate").hover(function(e){
         // alert(annotated_meanings[annot_number]);
         $($('.annotate')).attr('data-original-title',annotated_meanings[annot_number]);
     }
-   
 
-    
-   
-    
 })
+
+function isScrolledToBottom(el) {
+    var $el = $(el);
+    return el.scrollHeight - $el.scrollTop() - $el.outerHeight() < 1;
+}
+$(".story_holder").scroll(function(e){
+    if(this.scrollTop>=150){
+        $(".book-title-small").fadeIn(500);
+    }
+    else{
+        $(".book-title-small").fadeOut(500);
+
+    }
+})
+console.log(isScrolledToBottom('.story_holder'));
 
 
 

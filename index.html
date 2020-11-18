@@ -22,8 +22,10 @@
     <div class="container-fluid w-100">
 
         <div class="container pt-5">
-            <h4 class="book-title">Le Compte de Monte-Cristo</h4>
+            <h4 class="book-title-small">Le Comte de Monte-Cristo</h4>
             <div class="story_holder" style="border:1px solid transparent;">
+
+                <h1 class="book-title text-center">Le Comte de Monte-Cristo</h1>
                 <br>
                 <div id='chapter_title'></div>
                 <br><br><br>
@@ -67,10 +69,17 @@
         font-size:20px;
         
     }
-    .book-title{
+    .book-title-small{
         font-family: 'Roboto', sans-serif;
-        font-size:18px;
-        right:0;
+        font-size: 28px;
+        right: 0;
+        display: none;
+        transform: translateY(-26px);
+        font-weight: 700;
+        text-decoration: underline;
+    }
+    .book-title{
+        font-size:50px;
     }
     .annotate{
         font-family: 'Roboto', sans-serif;
