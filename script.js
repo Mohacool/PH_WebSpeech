@@ -33,7 +33,10 @@ recognition.onresult = function(event){
     content += transcript;
     textbox.val(content);
     
-    analyse(transcript);
+    // analyse(transcript);
+    // banalyse(transcript);
+    canalyse(transcript);
+
 
 }
 
@@ -110,7 +113,7 @@ $.ajax({
         $("#chapter_title").html("1 L’ARRIVÉE");
 
 
-        console.log("lines------------------");
+        console.log("linesblue------------------");
         console.log(lines);
 
        
@@ -142,11 +145,11 @@ $.ajax({
 
         // Add number annotations manually (this can be made into a loop later)
         lines = lines.replace("24","<span class='annotate number1' data-toggle='tooltip' data-placement='top' title='vingt-quatre'>24</span>");
-        lines = lines.replace("1815","<span class='annotate number2' data-toggle='tooltip' data-placement='top' title='mille-huit-cent-quinze'>1815</span>");
+        lines = lines.replace("1815,","<span class='annotate number2' data-toggle='tooltip' data-placement='top' title='mille-huit-cent-quinze'>1815,</span>");
 
        // Add audio annotations manually (this can be made into a loop later)
        audio_words.forEach(function (audio_word, index){    
-        lines = lines.replace(audio_word,`<span onclick="playAudio('audio/${audio_files[index]}')" class='audio' data-toggle='tooltip' data-placement='top' title="<img src='audio.png' height='30px'/>" >${audio_word}</span>`);
+            lines = lines.replace(audio_word,`<span onclick="playAudio('audio/${audio_files[index]}')" class='audio' data-toggle='tooltip' data-placement='top' title="<img src='audio.png' height='30px'/>" >${audio_word}</span>`);
 
        })
     //    lines = lines.replace("monsieur",`<span onclick="playAudio('audio/monsieur.mp3')" class='audio audio1' data-toggle='tooltip' data-placement='top' title="<img src='audio.png' height='30px'/>" >monsieur</span>`);
@@ -173,8 +176,11 @@ words = words.filter(word => word!="«" && word!="»").filter(e=> e!="" && e!="�
 console.log("words->");
 console.log(words);
 
-var at_word = 0;
-var at_position = 0;
+// Keep track of which word you're on
+// var at_word = 0;
+// var at_position = 0;
+
+// Function that does the actual highlighting
 function analyse(transcript){
     
     // Get the words detected
@@ -205,25 +211,38 @@ function analyse(transcript){
         let detected_word = item.toLowerCase();
         let actual_word = stripped_word.toLowerCase().trim();
 
+        console.log("############ is "+detected_word+"equal to "+actual_word);
+        console.log("############ is "+(detected_word==actual_word));
+
         if(detected_word == actual_word){
            
 
             // The text that can get highlighted (this gets smaller as you get more words)
             var current= $("#story").html().substring(at_position);
+            
+            var burrent= $("#story").html().substring(at_position);
 
             // The text that got highlighted
             var previous =$("#story").html().substring(0,at_position);
 
             // Highlight the word that matched 
+            console.log("############ highlight "+words[at_word]);
             var change = current.replace(words[at_word],"<mark>"+words[at_word]+"</mark>");
+            console.log("######### current"+current);
+            console.log("######### burrent"+burrent);
+            // console.log("previous="+previous);
+            // console.log("current="+current.substring(at_position));
+            // console.log("change="+change);
 
-            console.log("previous="+previous);
-            console.log("current="+current.substring(at_position));
-            console.log("change="+change);
             $("#story").html(previous+change);
 
             // Increase the current position to include the marks
+            
+            //This is wrong!
             at_position += item.length+14;
+
+            console.log("=============now at item"+stripped_word);
+            console.log(content.indexOf(stripped_word));
 
             console.log(at_position);
 
@@ -238,6 +257,80 @@ function analyse(transcript){
     });
     // $("#story").mark("hello");
     
+}
+var at_wrd = 0;
+
+function canalyse(transcript){
+    
+    // Split up the words detected
+    var words_detected = transcript.split(" ");
+
+    // Clean it up
+    words_detected = words_detected.filter(function(e){return e }); 
+
+    words_detected.forEach(function (item, index) {
+        var detected_word = item.toLowerCase();
+        
+        // Actual word that is in the HTML
+        var actual_word = words[at_wrd];
+        
+        // Cleaned up word used for comparison
+        var stripped_word = words[at_wrd].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()«»]/g,"").toLowerCase().trim();
+        console.table(detected_word,actual_word,stripped_word);
+        if (detected_word==stripped_word){
+            $("#story").mark(actual_word,{accuracy:'exactly'});
+            at_wrd+=1;
+
+        }
+        
+    })
+}
+function banalyse(transcript){
+    
+    // Split up the words detected
+    var words_detected = transcript.split(" ");
+
+    // Clean it up
+    words_detected = words_detected.filter(function(e){return e }); 
+
+
+    console.log(words_detected);
+    console.log(words);
+    words_detected.forEach(function (item, index) {
+        var detected_word = item.toLowerCase();
+        
+        // Actual word that is in the HTML
+        var actual_word = words[at_wrd];
+        
+        // Cleaned up word used for comparison
+        var stripped_word = words[at_wrd].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()«»]/g,"").toLowerCase().trim();
+        
+        if (detected_word==stripped_word){
+            console.log(detected_word+" = "+stripped_word);
+            console.log("actual word:"+actual_word);
+            at_wrd +=1;
+
+            console.log('current');
+            console.log($("#story").html().substring(0,300));
+
+            var copy = $("#story").html();
+            copy = copy.replace(actual_word,"<mark>"+actual_word+"</mark>");
+            $("#story").html(copy);
+
+            // console.log('copy');
+            // console.log(copy.substring(0,300));
+            
+
+            // console.log("now start at");
+            // copy = copy.substring(find);
+            // find += copy.indexOf("</mark>")+7;
+            // console.log(copy);
+
+            
+
+        }
+
+    })
 }
 
 $(".annotate").hover(function(e){
