@@ -259,7 +259,7 @@ function analyse(transcript){
     
 }
 var at_wrd = 0;
-
+var dict = {};
 function canalyse(transcript){
     
     // Split up the words detected
@@ -278,7 +278,38 @@ function canalyse(transcript){
         var stripped_word = words[at_wrd].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()«»]/g,"").toLowerCase().trim();
         console.table(detected_word,actual_word,stripped_word);
         if (detected_word==stripped_word){
+            console.log("#####FOUND: "+actual_word);
+            console.log("Find it in HTML and move it");
+            var options = {
+                "filter": function(node, term, totalCounter, counter){
+                    console.log('count:'+counter);
+                    console.log('term:'+term);
+                    console.log('total:'+totalCounter);
+
+                    console.log("The word: "+term+"has been found "+counter+"times");
+
+                    if (!(term in dict)){
+                        dict[term] = 0;
+                    }
+                    console.log(dict);
+
+                    if(counter >= dict[term]){
+                        console.log(term+" is >=1 so must be blocked");
+                        dict[term]+=1;
+                        return false;
+                    } else {
+                        console.log("true");
+                        // counter+=1;
+                        return true;
+                    }
+                },
+                accuracy:'exactly'
+                
+            };
+            
             $("#story").mark(actual_word,{accuracy:'exactly'});
+            // $("#story").mark(actual_word,options);
+
             at_wrd+=1;
 
         }
