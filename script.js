@@ -78,7 +78,8 @@ var annotated_meanings = ["a boat","to ask oneself / to wonder","a sailor / a se
 
 var numbers=["vingt-quatre","mille-huit-cent-quinze"];
 
-var audio_words = ["monsieur","est-il"];
+var audio_words = ["monsieur","est-il","Naples","survécu","laisse","comptable","l’eau","semble","Immédiatement"];
+var audio_files = ["monsieur.mp3","est-il.mp3","Naples.mp3","survécu.mp3","laisse.mp3","comptable.mp3","leau.mp3","semble.mp3","Immédiatement.mp3"];
 
 $.ajax({
     url: "chapter1.txt",
@@ -144,8 +145,13 @@ $.ajax({
         lines = lines.replace("1815","<span class='annotate number2' data-toggle='tooltip' data-placement='top' title='mille-huit-cent-quinze'>1815</span>");
 
        // Add audio annotations manually (this can be made into a loop later)
-    //    lines = lines.replace("monsieur")
-        
+       audio_words.forEach(function (audio_word, index){    
+        lines = lines.replace(audio_word,`<span onclick="playAudio('audio/${audio_files[index]}')" class='audio' data-toggle='tooltip' data-placement='top' title="<img src='audio.png' height='30px'/>" >${audio_word}</span>`);
+
+       })
+    //    lines = lines.replace("monsieur",`<span onclick="playAudio('audio/monsieur.mp3')" class='audio audio1' data-toggle='tooltip' data-placement='top' title="<img src='audio.png' height='30px'/>" >monsieur</span>`);
+    //    lines = lines.replace("est-il",`<span onclick="playAudio('audio/est-il.mp3')" class='audio audio1' data-toggle='tooltip' data-placement='top' title="<img src='audio.png' height='30px'/>" >est-il</span>`);
+
 
         
 
@@ -251,10 +257,7 @@ $(".annotate").hover(function(e){
 
 })
 
-function isScrolledToBottom(el) {
-    var $el = $(el);
-    return el.scrollHeight - $el.scrollTop() - $el.outerHeight() < 1;
-}
+// Show a small story title when the big title is scrolled past
 $(".story_holder").scroll(function(e){
     if(this.scrollTop>=150){
         $(".book-title-small").fadeIn(500);
@@ -264,7 +267,10 @@ $(".story_holder").scroll(function(e){
 
     }
 })
-console.log(isScrolledToBottom('.story_holder'));
+
+function playAudio(url) {
+    new Audio(url).play();
+}
 
 
 

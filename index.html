@@ -105,45 +105,13 @@
         overflow-x:hidden;
         overflow-y:scroll;
     }
-
-    .fooltip {
-        position:relative; /* making the .tooltip span a container for the tooltip text */
-        border-bottom:1px dashed #000; /* little indicater to indicate it's hoverable */
+    .audio{
+        font-weight:800;
+        color: rgb(85, 151, 182);
     }
-    .fooltip:before {
-        content: attr(data-text); /* here's the magic */
-        position:absolute;
-        
-        /* vertically center */
-        top:50%;
-        transform:translateY(-50%);
-        
-        /* move to right */
-        left:100%;
-        margin-left:15px; /* and add a small left margin */
-        
-        /* basic styles */
-        width:200px;
-        padding:10px;
-        border-radius:10px;
-        background:#000;
-        color: #fff;
-        text-align:center;
+    .audio:hover{
+        cursor:pointer;
 
-        display:none; /* hide by default */
-    }
-    .fooltip:hover:before {
-        display:block;
-    }
-
-    .fooltip.left:before {
-        /* reset defaults */
-        left:initial;
-        margin:initial;
-
-        /* set new values */
-        right:100%;
-        margin-right:15px;
     }
     .tooltip-inner {
         max-width: 200px;
@@ -167,8 +135,9 @@
 <script>
     
     $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-        console.log($('[data-toggle="tooltip"]'));
+        $('[data-toggle="tooltip"]').tooltip({
+            html:true
+        });
     })
 </script>
 <script src="script.js"></script>
